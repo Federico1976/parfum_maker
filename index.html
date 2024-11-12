@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Fragranze</title>
+    <style>
+        /* Stili di base e responsivi */
+        body {
+    font-family: 'Lato', sans-serif; /* Un font moderno e pulito per il corpo */
+    margin: 0;
+    padding: 0;
+    background-color: #f5f3f2; /* Colore di sfondo più delicato */
+    display: flex;
+    flex-direction: column;
+    color: #333; /* Testo più scuro per migliore leggibilità */
+}
+
+header {
+    background-color: #fff;
+    color: #3c2a1a;
+    text-align: center;
+    padding: 2.5rem; /* Maggiore padding per far respirare il titolo */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #ddd;
+}
+
+h1 {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; /* Un po' più grande per dare importanza */
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #d4a373, #ab8476);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15); /* Ombra più pronunciata */
+}
+
+.main-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    gap: 2rem; /* Maggiore spazio tra i pannelli */
+}
+
+.left-panel, .right-panel {
+    border-radius: 12px;
+    padding: 2rem; /* Più spazio all'interno dei pannelli */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Ombre più morbide */
+}
+
+.left-panel {
+    flex: 4;
+    background-color: #fff;
+}
+
+.right-panel {
+    flex: 6;
+    background-color: #fff;
+}
+.panel-title {
+    font-family: 'Playfair Display', serif; /* Font elegante */
+    font-size: 1.3rem; /* Dimensione maggiore per evidenziare */
+    font-style: italic; /* Testo in corsivo */
+    color: #3c2a1a; /* Colore sobrio */
+    margin-bottom: 1.5rem; /* Spazio sotto il titolo */
+    text-align: center; /* Allinea al centro */
+}
+
+/* Stili per i tre div con sfondi diversi */
+        /* Migliora l'aspetto dei div con sfumature, ombre e transizioni */
+.extra-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1.5rem;
+}
+
+.content-box {
+    flex: 1;
+    padding: 2rem;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* Altezza uniforme */
+}
+
+.content-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #f5e3d2, #e2d5c6);
+}
+
+/* Sfondi con gradienti personalizzati per ogni div */
+.box-1 {
+    background: linear-gradient(135deg, #f0d8c3, #d4a373);
+    color: #3c2a1a;
+}
+
+.box-2 {
+    background: linear-gradient(135deg, #e2e2e2, #bfbfbf);
+    color: #3c2a1a;
+}
+
+.box-3 {
+    background: linear-gradient(135deg, #f3c5c5, #ab8476);
+    color: #fff;
+}
+
+/* Testo nei div */
+.content-box h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.content-box p {
+    font-size: 1.1rem;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+}
+
+/* Per schermi più piccoli */
+@media (max-width: 768px) {
+    .extra-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .content-box {
+        height: auto; /* Altezza flessibile per schermi più piccoli */
+    }
+}
+
+		
+.oil-list li {
+    padding: 1rem; /* Più spazio per ogni elemento */
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+.oil-list li:hover {
+    background-color: #f0e6e6; /* Colore delicato al passaggio del mouse */
+}
+
+.perfume-item {
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.perfume-item:hover {
+    transform: translateY(-5px); /* Leggera elevazione al passaggio del mouse */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Ombra al passaggio del mouse */
+}
+
+.perfume-header {
+    background-color: #f9f7f6; /* Sfondo chiaro ed elegante */
+    padding: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.perfume-header:hover {
+    background-color: #e6dad5; /* Colore di sfondo che cambia al passaggio del mouse */
+}
+
+/* Nascondi i dettagli del profumo all'inizio */
+        .perfume-details {
+            display: none;
+            padding: 1rem;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 0;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #d4a373; /* Colore di focus elegante */
+    outline: none;
+}
+
+.gender-icon {
+    font-size: 1.5rem;
+    color: #3c2a1a;
+    margin-left: 0.5rem;
+}
+
+.rating, .rating-negative {
+    font-size: 1.2rem;
+}
+
+.rating {
+    color: #00b51a;
+}
+
+.rating-negative {
+    color: #ff0000;
+}
+
+.rating-number {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    color: #333;
+}
+
+
+.oil-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.oil-row label {
+    margin-right: 1rem;
+    font-weight: bold;
+}
+
+.oil-row input[type="number"], .oil-row input[type="radio"] {
+    margin-right: 1rem;
+}
+
+.oil-row input[type="radio"] {
+    margin-left: 10px;
+}
+
+/* Stili per la griglia */
+    .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Due colonne della stessa larghezza */
+            gap: 1rem; /* Spaziatura tra le colonne */
+            margin-top: 20px;
+        }
+
+    .grid-item {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+    select {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 0.75rem 1.5rem;
+        background-color: #d4a373;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    button:hover {
+        background-color: #b58255;
+    }
+.green-arrow {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 25px;
+    color: green;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.green-arrow:hover {
+    transform: scale(1.2);
+}
+
+.perfume-header-uomo {
+    background-image: linear-gradient(135deg, #d0f0fd, #a0d8fc); /* Azzurrino sfumato */
+}
+
+.perfume-header-donna {
+    background-image: linear-gradient(135deg, #fcd0f3, #fca0d8); /* Rosato sfumato */
+}
+
+.perfume-header-unisex {
+    background-image: linear-gradient(135deg, #f0f0f0, #e2e2e2); /* Bianco sfumato */
+}
+
+    </style>
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+    <header>
+        <h1>Gestione delle Fragranze e Oli Essenziali</h1>
+    </header>
+
+    <div class="main-container">
+        <!-- Colonna di sinistra: Elenco degli oli e molecole -->
+        <div class="left-panel">
+           <h2 class="panel-title">Elenco Oli e Molecole</h2> <!-- Titolo elegante --> 
+            <ul class="oil-list" id="oilList">
+                <!-- Gli oli e le molecole verranno caricati qui dinamicamente -->
+            </ul>
+        </div>
+
+        <!-- Colonna di destra: Solo ricerca -->
+        <div class="right-panel">
+		<h2 class="panel-title">I miei profumi</h2> <!-- Titolo elegante -->
+            <div class="search-bar">
+                 <input type="text" id="searchInput" placeholder="Cerca olio/ingrediente...">
+            </div>
+			<p>
+			
+			
+			<div class="perfume-list">
+    <div class="perfume-item">
+        <div class="perfume-header perfume-header-uomo" onclick="togglePerfumeDetails(1)">MeroCocò<span class="gender-icon">&#9794;</span> <!-- Simbolo maschile --><span class="rating">★★★★★★☆☆☆☆</span><span class="rating-number">Voto: 6/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-1">
+            <ul>
+            <li><strong>Quantità oli:</strong> 15ml</li>
+            <li><strong>Oli:</strong> Vetiver 4ml, Amber Romance 2ml, Ciliegia 1ml, Peppermint 2ml, Rasberry 2.5ml, Gelsomino 1.5ml, Rosa 0.5ml</li>
+            <li><strong>Prova indossato:</strong>  Senza arte ne parte , non piace. Solo qualche commento positivo. Personalmente particolare grazie al lampone </li>
+        </ul>
+        </div>
+    </div>
+    <div class="perfume-item">
+        <div class="perfume-header perfume-header-uomo" onclick="togglePerfumeDetails(2)">Le Cutis<span class="gender-icon">&#9794;</span><span class="rating-negative">★★★★★☆☆☆☆☆</span><span class="rating-number">Voto: 5/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-2">
+            <ul>
+            <li><strong>Quantità oli:</strong> 25ml</li>
+            <li><strong>Oli:</strong> Vetiver 4ml, Gelsomino 4ml, Giglio della valle 1.5ml, Geranio 3ml, Arancio 0.5ml, Muschio Bianco 2ml, Vaniglia 0.5ml, Sandalo 5ml, Amber romance 4.5ml, Frankincense 1ml </li>
+            <li><strong>Prova indossato:</strong> Pizzica al naso e personalmente è meno buono di Merococò. Nessun commento positivo. Però pomeriggio in macchina ancora si sentiva, floreale sul braccio</li>
+        </ul>
+        </div>
+    </div>
+    <div class="perfume-item">
+        <div class="perfume-header perfume-header-unisex" onclick="togglePerfumeDetails(3)">The Beach<span class="gender-icon">&#9900;</span><span class="rating">★★★★★★★☆☆☆</span><span class="rating-number">Voto: 7/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-3">
+            <ul>
+            <li><strong>Quantità oli:</strong> 10ml</li>
+            <li><strong>Oli:</strong>50 gg Breeze, 18 gg Ananas, 20 gg Giglio della valle, 10 gg Cedro, 10gg Teakwood</li>
+            <li><strong>Prova indossato:</strong>Impatto Pietro buonissimo, altri pareri discordanti, ananas per me eccellente, ma particolare.Tropicale, solo estivo.Da Eva anche 9,5</li>
+        </ul>
+        </div>
+    </div>
+	<div class="perfume-item">
+        <div class="perfume-header perfume-header-unisex" onclick="togglePerfumeDetails(4)">My Boy 2<span class="gender-icon">&#9900;</span><span class="rating">★★★★★★★☆☆☆</span><span class="rating-number">Voto: 7.5/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-4">
+            <ul>
+            <li><strong>Quantità oli:</strong> 16.5ml</li>
+            <li><strong>Oli:</strong> Amber romance 4ml, Vaniglia 1.5ml, Sea Breeze 10ml, Clary Sage 1ml</li>
+            <li><strong>Prova indossato:</strong> Fresco, estivo, poco duraturo ma buonissimo.Commenti ottimi e istintivi subito. Voti alti da tutti. Probabile anche UNISEX</li>
+        </ul>
+        </div>
+    </div>
+	<div class="perfume-item">
+        <div class="perfume-header perfume-header-uomo" onclick="togglePerfumeDetails(5)">Splash!<span class="gender-icon">&#9794;</span><span class="rating">★★★★★★★☆☆☆</span><span class="rating-number">Voto: 7/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-5">
+            <ul>
+            <li><strong>Quantità oli:</strong> </li>
+            <li><strong>Oli:</strong> 4 gocce Cedro, Pino nero 0.5ml, 1 goccia Finocchio, Lino fresco 1.5ml, Iso e Super 2ml,3 gocce di Vaniglia, Freesia 0.5ml, Ocean breeze 0.5ml, 2 gocce di Mango</li>
+            <li><strong>Prova indossato:</strong> Fresco ma leggermente antico, estivo, buonissimo,barca e camicia, non invadente.Commenti positivi. Voti alti da tutti. Probabile anche UNISEX</li>
+        </ul>
+        </div>
+    </div>
+	<div class="perfume-item">
+        <div class="perfume-header perfume-header-uomo" onclick="togglePerfumeDetails(6)">Centurione 2°ver<span class="gender-icon">&#9794;</span><span class="rating">★★★★★★☆☆☆☆</span><span class="rating-number">Voto: 6/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-6">
+            <ul>
+            <li><strong>Quantità oli:</strong> 10ml</li>
+            <li><strong>Oli:</strong> Vedi foglio word raccoglitore </li>
+            <li><strong>Prova indossato:</strong>Piace uomini antichi, profumo forte da uomo , piace o non piace. Aspro. Da considerare.</li>
+        </ul>
+        </div>
+    </div>
+	<div class="perfume-item">
+        <div class="perfume-header perfume-header-donna" onclick="togglePerfumeDetails(7)">Fe 1<span class="gender-icon">&#9792;</span><span class="rating">★★★★★★★☆☆☆</span><span class="rating-number">Voto: 7/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-7">
+            <ul>
+            <li><strong>Quantità oli:</strong>10ml</li>
+            <li><strong>Oli:</strong>30gg Ambra,10gg Sandalo, 15gg Vetiver, 10gg Peonia, 15gg Gelsomino, 5gg Iris, 15gg Pesca, 5gg Mango, 5gg Bergamotto  </li>
+            <li><strong>Prova indossato:</strong> Buono, la pesca è favolosa per la donna come testa, ovviamente da perdurare.</li>
+        </ul>
+        </div>
+    </div>
+	<div class="perfume-item">
+        <div class="perfume-header perfume-header-uomo" onclick="togglePerfumeDetails(8)">Fe 1<span class="gender-icon">&#9794;</span> <!-- Simbolo maschile --><span class="rating">★★★★★★☆☆☆☆</span><span class="rating-number">Voto: 6.5/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-8">
+            <ul>
+            <li><strong>Quantità oli:</strong>10ml</li>
+            <li><strong>Oli:</strong>30gg Muschio bianco,Vaniglia,Deep Ocean, 35gg Fresco lino, 15gg Ananas,Cocco,Menta!</li>
+            <li><strong>Prova indossato:</strong> Voti alti, apprezzamenti totali. Michela addirittura 9, Roberto 8,Barbara 9  Polso buonissimo, ovviamente aumentare durata </li>
+        </ul>
+        </div>
+    </div>
+	<div class="perfume-item">
+        <div class="perfume-header perfume-header-uomo" onclick="togglePerfumeDetails(9)">Il Senior<span class="gender-icon">&#9794;</span> <!-- Simbolo maschile --><span class="rating">★★★★★★☆☆☆☆</span><span class="rating-number">Voto: 6/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-9">
+            <ul>
+            <li><strong>Quantità oli:</strong>10ml</li>
+            <li><strong>Oli:</strong></li>
+            <li><strong>Prova indossato:</strong> </li>
+        </ul>
+        </div>
+    </div>
+	<div class="perfume-item">
+        <div class="perfume-header perfume-header-donna" onclick="togglePerfumeDetails(10)">Diorissimo<span class="gender-icon">&#9792;</span> <!-- Simbolo femminile --><span class="rating">★★★★★★★★☆☆</span><span class="rating-number">Voto: 8.5/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-10">
+            <ul>
+            <li><strong>Quantità oli:</strong>10ml</li>
+            <li><strong>Oli:</strong></li>
+            <li><strong>Prova indossato:</strong> </li>
+        </ul>
+        </div>
+    </div>
+	<div class="perfume-item">
+        <div class="perfume-header perfume-header-donna" onclick="togglePerfumeDetails(11)">My Girl(2)<span class="gender-icon">&#9792;</span> <!-- Simbolo femminile --><span class="rating">★★★★★★☆☆☆☆</span><span class="rating-number">Voto: 6.5/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-11">
+            <ul>
+            <li><strong>Quantità oli:</strong>10ml</li>
+            <li><strong>Oli:</strong>Ambra Romance 4 ml, Viola di Parma 10ml, Gelsomino 2ml, Teakwood 1ml</li>
+            <li><strong>Prova indossato:</strong> Voti sufficienti da donna, Terra , pungente, Evocativo Roberto,  </li>
+        </ul>
+        </div>
+    </div>
+	<div class="perfume-item">
+        <div class="perfume-header perfume-header-uomo" onclick="togglePerfumeDetails(12)">Ocean 1<span class="gender-icon">&#9794;</span> <!-- Simbolo maschile --><span class="rating">★★★★★★★☆☆☆</span><span class="rating-number">Voto: 7/10</span> <!-- Voto numerico --> <!-- Voto con stelle --> <!-- Voto numerico --></div>
+        <div class="perfume-details" id="details-12">
+            <ul>
+            <li><strong>Quantità oli:</strong>30ml</li>
+            <li><strong>Oli:</strong></li>
+            <li><strong>Prova indossato:</strong>  Pietro super complimenti</li>
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+
+        </div>
+			<!-- Nuovo div per mostrare altri contenuti -->
+<!-- Nuovo div per mostrare altri contenuti -->
+<div class="extra-content">
+
+    <form id="oilCalculator">
+	<h2 class="panel-title">Creazione fragranza</h2> <!-- Titolo elegante -->
+        <!-- Input per il volume totale del profumo -->
+        <div class="oil-row">
+            <label for="totalVolume">Volume Parfum (ml): </label>
+            <input type="number" id="totalVolume" placeholder="Inserisci volume totale" min="0" oninput="updateValues()" required>
+        </div>
+
+        <!-- Selezione tra EDP e EXDP -->
+        <div class="oil-row">
+            <label>Seleziona Tipo:</label>
+            <input type="radio" id="edp" name="type" value="EDP" onclick="updateValues()">
+            <label for="edp">EDP</label>
+            <input type="radio" id="exdp" name="type" value="EXDP" onclick="updateValues()">
+            <label for="exdp">EXDP</label>
+        </div>
+
+        <!-- Output per Totale Millilitri Oli e Alcool -->
+        <div class="oil-row">
+            <label><strong>Totale Millilitri Oli:</strong> </label>
+            <span id="totalMlOli">0</span> ml
+        </div>
+
+        <div class="oil-row">
+            <label><strong>Totale Millilitri Alcool:</strong> </label>
+            <span id="totalMlAlcool">0</span> ml
+        </div>
+
+        <!-- Pulsante Procedi -->
+                <button type="button" id="proceedButton" onclick="showGrid()">Procedi</button>
+
+                <!-- Griglia semplice (una riga, due colonne) -->
+<div id="gridContainer" class="grid-container" style="display: none;">
+    <!-- Prima colonna -->
+    <div class="grid-item">
+        <label for="oilSelect">Elenco Oli:</label>
+        <select id="oilSelect">
+            <!-- Opzioni per ora vuote -->
+        </select>
+    </div>
+
+    <!-- Seconda colonna -->
+    <div class="grid-item">
+        <label for="quantity">Quantità (ml):</label>
+        <input type="number" id="quantity" placeholder="Inserisci quantità">
+   <!-- Freccia verde cliccabile -->
+    <span id="arrow" class="green-arrow" onclick="handleArrowClick()">&#11015;</span>
+
+   </div>
+   
+   <!-- Lista per visualizzare le selezioni dell'olio -->
+<h3>Oli selezionati:</h3>
+<ul id="selectedOils">
+    <!-- Le selezioni verranno aggiunte qui -->
+</ul>
+
+</div>
+            </form>
+        </div>
+    </div>
+	
+    <script>
+	
+	function handleArrowClick() {
+    // Recupera il valore selezionato dall'elenco degli oli
+    const selectedOil = document.getElementById("oilSelect").value;
+    
+    // Recupera il valore della quantità inserita
+    const quantity = document.getElementById("quantity").value;
+
+    // Controlla che siano stati selezionati un olio e una quantità valida
+    if (selectedOil && quantity > 0) {
+        // Crea un nuovo elemento della lista con le informazioni
+        const listItem = document.createElement("li");
+        listItem.textContent = `Olio: ${selectedOil}, Quantità: ${quantity} ml`;
+        
+        // Aggiungi l'elemento della lista alla lista degli oli selezionati
+        document.getElementById("selectedOils").appendChild(listItem);
+    } else {
+        console.log("Seleziona un olio e inserisci una quantità valida.");
+    }
+}
+
+	// Funzione per gestire l'aggiornamento del volume totale del profumo
+function updateTotalVolume() {
+    const totalVolume = document.getElementById('totalVolume').value;
+    console.log("Volume Parfum:", totalVolume); // Puoi aggiungere logica aggiuntiva qui
+}
+
+
+// Funzione per aggiornare i valori di Totale Millilitri Oli e Alcool
+function updateValues() {
+    const totalVolume = parseFloat(document.getElementById('totalVolume').value) || 0;
+    const edpSelected = document.getElementById('edp').checked;
+    const exdpSelected = document.getElementById('exdp').checked;
+
+    let oilPercentage = 0;
+
+    // Determina la percentuale degli oli in base al tipo selezionato
+    if (edpSelected) {
+        oilPercentage = 0.18; // 18% per EDP
+    } else if (exdpSelected) {
+        oilPercentage = 0.28; // 28% per EXDP
+    }
+
+    // Calcolo dei millilitri di oli e alcool
+    const totalMlOli = totalVolume * oilPercentage;
+    const totalMlAlcool = totalVolume - totalMlOli;
+
+    // Aggiorna i valori nel DOM
+    document.getElementById('totalMlOli').textContent = totalMlOli.toFixed(2);
+    document.getElementById('totalMlAlcool').textContent = totalMlAlcool.toFixed(2);
+}
+// Funzione per mostrare la griglia quando si clicca su "Procedi"
+    function showGrid() {
+        document.getElementById('gridContainer').style.display = 'grid';
+    }
+
+// Funzione per gestire il comportamento in base al tipo selezionato (EDP o EXDP)
+function handleTypeSelection(type) {
+    if (type === 'EDP') {
+        console.log("EDP selezionato - Eau de Parfum: Concentration 15-20%");
+        // Puoi aggiungere logica specifica per EDP qui
+    } else if (type === 'EXDP') {
+        console.log("EXDP selezionato - Extrait de Parfum: Concentration 20-30%");
+        // Puoi aggiungere logica specifica per EXDP qui
+    }
+}
+
+	
+
+	
+	// Funzione per nascondere e mostrare i profumi in base alla ricerca
+        function filterPerfumesByIngredient() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const perfumeItems = document.querySelectorAll('.perfume-item');
+
+            perfumeItems.forEach(item => {
+                const oils = item.querySelector('.perfume-details ul').textContent.toLowerCase();
+                if (oils.includes(searchInput)) {
+                    item.style.display = 'block';  // Mostra il profumo se contiene l'ingrediente
+                } else {
+                    item.style.display = 'none';  // Nasconde il profumo se non contiene l'ingrediente
+                }
+            });
+        }
+
+        // Aggiungi l'evento di ricerca al campo di input
+        document.getElementById('searchInput').addEventListener('input', filterPerfumesByIngredient);
+	
+	
+	
+	function togglePerfumeDetails(id) {
+    const details = document.getElementById(`details-${id}`);
+    if (details.style.display === "none" || details.style.display === "") {
+        details.style.display = "block";
+    } else {
+        details.style.display = "none";
+    }
+}
+
+
+function toggleAppunti(id) {
+    const shortText = document.getElementById(`appunti-short-${id}`);
+    const fullText = document.getElementById(`appunti-full-${id}`);
+    const toggleButton = document.getElementById(`toggle-${id}`);
+
+    if (fullText.style.display === "none") {
+        shortText.style.display = "none";
+        fullText.style.display = "inline";
+        toggleButton.textContent = "-"; // Cambia il simbolo a "-"
+    } else {
+        shortText.style.display = "inline";
+        fullText.style.display = "none";
+        toggleButton.textContent = "+"; // Cambia il simbolo a "+"
+    }
+}
+        // Funzione per convertire CSV in un array di oggetti, con rimozione delle virgolette
+        function parseCSV(csv) {
+            const rows = csv.trim().split('\n');
+            const headers = rows[0].split(',').map(header => header.trim().toLowerCase().replace(/['"]+/g, '')); // Rimuovo virgolette dalle intestazioni
+            console.log("Headers:", headers); // Log intestazioni
+
+            return rows.slice(1).map(row => {
+                const values = row.split(',').map(value => value.trim().replace(/['"]+/g, '')); // Rimuovo virgolette dai valori
+                const obj = {};
+                headers.forEach((header, i) => obj[header] = values[i] || "Dati non disponibili");
+                return obj;
+            });
+        }
+
+                function createOilMoleculeList(oliMolecole) {
+    const oilSelectElement = document.getElementById('oilSelect');
+    const oilListElement = document.getElementById('oilList'); // Per la lista visiva
+
+    // Resetto il select e la lista visiva
+    oilSelectElement.innerHTML = ''; 
+    oilListElement.innerHTML = ''; 
+
+    oliMolecole.forEach(olio => {
+        // Popola il <select> con le descrizioni degli oli
+        const option = document.createElement('option');
+        option.value = olio['descrizione']; 
+        option.textContent = olio['descrizione']; 
+        oilSelectElement.appendChild(option);
+
+        // Popola la lista visiva (<ul>)
+        const restQaValue = parseFloat(olio['restqa'].replace('ml', '').trim());
+        const colorStyle = restQaValue < 2 ? 'color: red;' : '';
+        const appuntiText = olio['appunti'] || 'Dati non disponibili';
+
+        let appuntiHtml;
+        if (appuntiText.length > 50) {
+            const truncatedAppunti = appuntiText.slice(0, 50) + "...";
+            appuntiHtml = `
+                <span id="appunti-short-${olio['descrizione']}" style="line-height: 1.6;">${truncatedAppunti}</span>
+                <span id="appunti-full-${olio['descrizione']}" style="display: none; line-height: 1.6;">${appuntiText}</span>
+                <a href="#" onclick="toggleAppunti('${olio['descrizione']}'); return false;"> <span id="toggle-${olio['descrizione']}">+</span></a>
+            `;
+        } else {
+            appuntiHtml = `<span style="line-height: 1.6;">${appuntiText}</span>`;
+        }
+
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <h3 style="${colorStyle}">${olio['descrizione'] || 'Descrizione non disponibile'}</h3>
+            <p><strong>RestQa:</strong> ${olio['restqa'] || 'Dati non disponibili'}</p>
+            <p><strong>Note:</strong> ${olio['note'] || 'Dati non disponibili'}</p>
+            <p><strong>Appunti:</strong> ${appuntiHtml}</p>
+        `;
+
+        oilListElement.appendChild(li); // Appende l'elemento alla lista visiva
+    });
+}
+
+
+        // Caricamento del CSV e utilizzo delle funzioni aggiornate
+        function loadOliMolecole() {
+            fetch('oli_molecole.csv')
+                .then(response => response.text())
+                .then(csvData => {
+                    const oliMolecole = parseCSV(csvData);
+                    createOilMoleculeList(oliMolecole); // Popola il select e la lista
+                })
+                .catch(error => console.error('Errore nel caricamento del CSV:', error));
+        }
+
+        loadOliMolecole(); // Richiama il caricamento del CSV all'avvio
+
+    </script>
+</body>
+</html>
